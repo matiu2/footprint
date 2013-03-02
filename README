@@ -1,0 +1,18 @@
+This is the footprint security website source tree.
+
+It uses cmake as the build system. To build:
+
+mkdir build
+cd build
+cmake ..
+make
+
+Directory Layout:
+ + libs/ -- All the libraries we made specifically for this site
+ + site/ -- The top level source code for the main site
+   + widgets -- The widgets that make up the main site
+   + models  -- The database models
+   + control -- The layer that binds widgets with models
+   + css     -- CSS generation and templates
+   + tests   -- Testing suite
+   + messages -- Strings and transation used
