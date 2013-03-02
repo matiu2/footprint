@@ -5,6 +5,7 @@
 #include <Wt/WApplication>
 #include <Wt/WEnvironment>
 #include <Wt/WText>
+#include "widgets/MainWindow.hpp"
 
 namespace footprint {
 
@@ -12,7 +13,7 @@ namespace footprint {
     class App : public Wt::WApplication {
     public:
         App(const Wt::WEnvironment& env) : Wt::WApplication(env) {
-            new Wt::WText("Hello", root());
+            new widgets::MainWindow(root());
         };
     };
 
