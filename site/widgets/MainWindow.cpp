@@ -14,18 +14,11 @@ struct MainWindow::Fields : public Wt::WObject {
     Wt::WBorderLayout* layout;
     Wt::WImage* logo;
     Fields(Wt::WContainerWidget* parent) : Wt::WObject(parent) {
-        layout = new Wt::WBorderLayout(parent);
-        logo = new Wt::WImage("logo.jpg", parent);
-        typedef Wt::WBorderLayout::Position Pos;
-        layout->addWidget(logo, Pos::North);
+        logo = new Wt::WImage("/images/logo.jpg", parent);
         auto body = new PlaceHolder(Wt::WText::tr("lorem-impsum"), parent);
-        layout->addWidget(body, Pos::Center);
         auto left = new PlaceHolder("This is the left pane", parent);
-        layout->addWidget(left, Pos::West);
         auto right = new PlaceHolder("This is the right pane", parent);
-        layout->addWidget(right, Pos::East);
         auto bottom = new PlaceHolder("This is the footer", parent);
-        layout->addWidget(bottom, Pos::East);
     }
 };
 

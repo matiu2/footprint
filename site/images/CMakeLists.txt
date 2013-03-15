@@ -1,3 +1,3 @@
 project (images)
 
-file(COPY . DESTINATION images)
+file(COPY . DESTINATION .)

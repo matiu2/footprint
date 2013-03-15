@@ -5,6 +5,7 @@
 #include <Wt/WApplication>
 #include <Wt/WEnvironment>
 #include <Wt/WText>
+#include <Wt/WBootstrapTheme>
 #include "widgets/MainWindow.hpp"
 
 namespace footprint {
@@ -13,6 +14,7 @@ namespace footprint {
     class App : public Wt::WApplication {
     public:
         App(const Wt::WEnvironment& env) : Wt::WApplication(env) {
+            setTheme(new Wt::WBootstrapTheme(this));
             new widgets::MainWindow(root());
         };
     };

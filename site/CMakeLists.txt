@@ -1,5 +1,7 @@
 project(src)
 
+file(COPY resources DESTINATION .)
+
 add_subdirectory(images)
 add_subdirectory(widgets)
 
