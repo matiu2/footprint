@@ -7,10 +7,6 @@ namespace widgets {
 
 class MainWindow : public Wt::WContainerWidget {
 public:
-    class Fields;
-private:
-    Fields* _fields;
-public:
     MainWindow(Wt::WContainerWidget* parent=0);
 };
 

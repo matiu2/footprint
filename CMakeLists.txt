@@ -29,14 +29,16 @@ SET( WT_LIBS ${WT} ${WT_HTTP} ${WT_DBO} ${WT_DBO_POSTGRES} )
 # Basically everything will link against ${COMMON_LIBS}
 SET( COMMON_LIBS ${BOOST_LIBS} ${WT_LIBS} )
 
-# User variables for the build/install
-set(APP_ROOT "share/lib/footprint" CACHE PATH "Where the c++ code loads resources from, not directly published to the web")
-set(DOC_ROOT "share/doc/footprint" CACHE PATH "Where resources for serving directly to the web are found")
+# User variables for the build/install 
+set(ETC "etc" CACHE PATH "The config dir")
+set(SHARE "share/footprint" CACHE PATH "The main install directory for the footprint website")
+set(APP_ROOT "share/footprint/doc_root" CACHE PATH "Where the c++ code loads resources from, not directly published to the web")
+set(DOC_ROOT "share/footprint/app_root" CACHE PATH "Where resources for serving directly to the web are found")
 
-add_subdirectory(site)
-#add_subdirectory(widgets)
+add_subdirectory(widgets)
+add_subdirectory(etc)
+add_subdirectory(bin)
+add_subdirectory(share/footprint)
 #add_subdirectory(compass)
 #enable_testing()
 #add_subdirectory(tests)
-
-# Copy over what's needed for 
