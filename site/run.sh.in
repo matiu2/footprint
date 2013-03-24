@@ -1,0 +1,3 @@
+#!/bin/sh
+./footprint --docroot="${DOC_ROOT};/images,/resources" --http-address=127.0.0.1 --http-port=8080 --approot="${APP_ROOT}" -c ${APP_ROOT}/wt_config.xml
+

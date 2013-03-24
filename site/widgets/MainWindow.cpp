@@ -11,8 +11,7 @@ typedef Wt::WText PlaceHolder;
 
 /// Holds all the fields so we don't have too many imports in the header file
 struct MainWindow::Fields : public Wt::WObject {
-    Wt::WBorderLayout* layout;
-    Wt::WImage* logo;
+
     Fields(Wt::WContainerWidget* parent) : Wt::WObject(parent) {
         logo = new Wt::WImage("/images/logo.jpg", parent);
         auto body = new PlaceHolder(Wt::WText::tr("lorem-impsum"), parent);
