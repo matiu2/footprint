@@ -32,8 +32,8 @@ SET( COMMON_LIBS ${BOOST_LIBS} ${WT_LIBS} )
 # User variables for the build/install 
 set(ETC "etc" CACHE PATH "The config dir")
 set(SHARE "share/footprint" CACHE PATH "The main install directory for the footprint website")
-set(APP_ROOT "share/footprint/doc_root" CACHE PATH "Where the c++ code loads resources from, not directly published to the web")
-set(DOC_ROOT "share/footprint/app_root" CACHE PATH "Where resources for serving directly to the web are found")
+set(APP_ROOT "share/footprint/app_root" CACHE PATH "Where the c++ code loads resources from, not directly published to the web")
+set(DOC_ROOT "share/footprint/doc_root" CACHE PATH "Where resources for serving directly to the web are found")
 
 add_subdirectory(widgets)
 add_subdirectory(etc)
