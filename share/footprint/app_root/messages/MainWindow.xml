@@ -5,8 +5,11 @@
     <div id="outer">
       <div id="header">
         <img src="/images/logo.jpg" alt="Footprint Security" />
-        <span id="status-text">${status-text}</span>
+        <div>Call 1300 852 400 for Expert Advice, Tips and Suggestions</div>
+        <div id="search">${search}</div>
+        <div id="sign-up">${sign-up}</div>
       </div>
+      <div id="breadcrumbs">${breadcrumbs}</div>
       <div id="controls">${controls}</div>
       <div id="content">${content}</div>
       <div id="pre-footer"></div>

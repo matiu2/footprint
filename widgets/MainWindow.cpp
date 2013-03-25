@@ -16,7 +16,8 @@ void applyColors() {
     if (ss.isDefined("header-background"))
         return;
     ss.addRule("#header", colors->bg(1, 0), "header-background");
-    ss.addRule("#controls", colors->bg(1, 1));
+    ss.addRule("#breadcrumbs", colors->bg(1, 3));
+    ss.addRule("#controls", colors->bg(2, 1));
     ss.addRule("#content", colors->bg(1, 2));
     ss.addRule("#footer", colors->bg(2, 0));
 }

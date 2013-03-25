@@ -42,3 +42,6 @@ add_subdirectory(share/footprint)
 #add_subdirectory(compass)
 #enable_testing()
 #add_subdirectory(tests)
+
+# Nice work env
+file(COPY work-live.sh on-file-change.sh DESTINATION .)
