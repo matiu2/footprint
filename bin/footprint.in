@@ -1,2 +1,2 @@
 #!/bin/sh
-${SHARE}/footprint --docroot="${DOC_ROOT};/images,/resources" --http-address$=127.0.0.1 --http-port=8080 --approot="${APP_ROOT}" -c ${ETC}/footprint_cfg.xml
+${SHARE}/footprint --docroot="${DOC_ROOT};/images,/resources,/css" --http-address$=127.0.0.1 --http-port=8080 --approot="${APP_ROOT}" -c ${ETC}/footprint_cfg.xml
