@@ -1,13 +1,13 @@
 #include "MainWindow.hpp"
 
 #include <Wt/WBorderLayout>
-#include <Wt/WImage>
-#include <Wt/WText>
+#include <Wt/WTemplate>
 
 namespace widgets {
 
 MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent) {
-    auto logo = new Wt::WImage("/images/logo.jpg", this);
+    auto tmpl = new Wt::WTemplate(tr("main-template"), this);
+
 }
 
 } // namespace widgets

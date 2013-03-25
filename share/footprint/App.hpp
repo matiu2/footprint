@@ -15,7 +15,8 @@ namespace footprint {
     public:
         App(const Wt::WEnvironment& env) : Wt::WApplication(env) {
             setTheme(new Wt::WBootstrapTheme(this));
-            messageResourceBundle().use(docRoot() + "messages/MainWindow");
+            addS
+            messageResourceBundle().use(appRoot() + "messages/MainWindow");
             new widgets::MainWindow(root());
         };
     };

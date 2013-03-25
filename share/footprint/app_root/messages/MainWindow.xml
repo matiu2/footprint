@@ -2,16 +2,17 @@
 <messages>
   <!-- Main Window Messages -->
   <message id="main-template">
-    <div id="header" class="fluid-row">
-      <h1 class="offset3 span3">Welcome to Vida Nueva</h1>
-      <span id="status-text" class="span1">${status-text}</span>
+    <div id="header" class="container">
+      <img src="/images/logo.jpg" alt="Footprint Security" />
+      <span id="status-text">${status-text}</span>
     </div>
-    <div id="main-container">
-      ${content}
+    <div class="container">
+        <div class="row">
+            <div class="span2">${controls}</div>
+            <div class="span10">${content}</div>
+        </div>
     </div>
-    <div id="controls-box">${controls}</div>
-    <div id="navigation-box">${nav}</div>
-    <div id="footer">
+    <div id="footer" class="container">
         <div>This is just a sample footer, but you can put whatever you want here. Perhaps an address or copyright information</div>
     </div>
   </message>
