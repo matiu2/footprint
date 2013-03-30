@@ -30,7 +30,7 @@ struct Server::Auth {
         if (Wt::Auth::GoogleService::configured())
             oAuthServices.push_back(new Wt::Auth::GoogleService(authService));
     }
-    static const Server::Auth* instance() { return Server::instance()->_auth.get(); }
+    static const Server::Auth* instance() { return Server::instance()->auth.get(); }
 };
 
 }

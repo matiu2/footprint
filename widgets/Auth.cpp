@@ -7,6 +7,7 @@ namespace footprint {
 namespace widgets {
 
 Auth::Auth(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent) {
+
 }
 
 } // namespace widgets

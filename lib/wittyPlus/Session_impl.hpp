@@ -14,27 +14,27 @@ namespace wittyPlus {
 typedef Wt::Auth::Dbo::UserDatabase<db::AuthInfo> UserDatabase;
 
 struct Session::Impl {
-    dbo::Session& _session;
-    dbo::backend::Postgres _connection;
-    UserDatabase _users;
+    dbo::Session& session;
+    dbo::backend::Postgres connection;
+    UserDatabase users;
     Wt::Auth::Login _login;
-    Impl(dbo::Session& session, const std::string& db) : _session(session), _connection(db), _users(session) {
-        if (_connection.connection() == nullptr)
+    Impl(dbo::Session& session, const std::string& db) : session(session), connection(db), users(session) {
+        if (connection.connection() == nullptr)
             throw std::logic_error(std::string("Unable to connect to database: ") + db);
-        session.setConnection(_connection);
+        session.setConnection(connection);
         mapClasses();
         syncDatabase();
     }
     void mapClasses() {
-        _session.mapClass<db::User>("user");
-        _session.mapClass<db::AuthInfo>("auth_info");
-        _session.mapClass<db::AuthInfo::AuthIdentityType>("auth_identity");
-        _session.mapClass<db::AuthInfo::AuthTokenType>("auth_token");
+        session.mapClass<db::User>("user");
+        session.mapClass<db::AuthInfo>("auth_info");
+        session.mapClass<db::AuthInfo::AuthIdentityType>("auth_identity");
+        session.mapClass<db::AuthInfo::AuthTokenType>("auth_token");
     }
 
     void syncDatabase() {
         try {
-            _session.createTables();
+            session.createTables();
             Wt::log("info") << "Created database.";
         } catch (std::exception& e) {
             Wt::log("info") << e.what();

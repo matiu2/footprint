@@ -11,7 +11,7 @@ class Server : public Wt::WServer {
 public:
     struct Auth;
 private:
-    std::unique_ptr<Auth> _auth;
+    std::unique_ptr<Auth> auth;
     friend class Auth;
 public:
     Server(int argc, char** argv);
