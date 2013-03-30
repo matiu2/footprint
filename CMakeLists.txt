@@ -8,9 +8,13 @@ add_definitions(-std=c++11)
 string(COMPARE EQUAL "${CMAKE_BUILD_TYPE}" "Debug" DEBUG) # If the build type is set to debug, set the ${DEBUG} variable
 
 # Boost libraries
-find_package( Boost COMPONENTS system program_options filesystem )
+find_package( Boost COMPONENTS system signals program_options filesystem )
 include_directories(${Boost_INCLUDE_DIRS})
-SET( BOOST_LIBS ${BOOST_SYSTEM_LIB} ${BOOST_PROGRAM_OPTIONS_LIB} ${BOOST_FILESYSTEM_LIB} )
+SET( BOOST_LIBS ${Boost_PROGRAM_OPTIONS_LIBRARY} ${Boost_FILESYSTEM_LIBRARY} ${Boost_SIGNALS_LIBRARY} ${Boost_SYSTEM_LIBRARY} )
+
+if(Boost_FOUND)
+      include_directories(${Boost_INCLUDE_DIRS})
+endif()
 
 # Load the wt libraries, search for debug ones if appropriate
 if ( ${DEBUG} )
@@ -27,7 +31,7 @@ endif()
 SET( WT_LIBS ${WT} ${WT_HTTP} ${WT_DBO} ${WT_DBO_POSTGRES} )
 
 # Basically everything will link against ${COMMON_LIBS}
-SET( COMMON_LIBS ${BOOST_LIBS} ${WT_LIBS} )
+SET( COMMON_LIBS ${WT_LIBS} ${BOOST_LIBS} )
 
 # User variables for the build/install 
 set(ETC "etc" CACHE PATH "The config dir")

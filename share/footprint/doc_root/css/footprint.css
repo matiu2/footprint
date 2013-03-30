@@ -1,9 +1,21 @@
 body { height: 100%; }
 html { height: 100%; }
 
-#header {
-    margin-bottom: 10px;
+body {
+  color: white;
 }
+
+#header {
+    margin-bottom: 5px;
+    position: relative;
+}
+
+#header img {
+    float: left;
+    break: right;
+}
+
+#header div { float: left; }
 
 #outer {
     margin-left: 5%;
