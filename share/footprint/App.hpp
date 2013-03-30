@@ -7,7 +7,8 @@
 #include <Wt/WText>
 #include <Wt/WCssTheme>
 
-#include <wittyPlus/Session.hpp>
+#include <wittyPlus/App.hpp>
+
 
 #include "Colors.hpp"
 
@@ -16,18 +17,15 @@
 namespace footprint {
 
 /// The Application object for the footprint security website
-class App : public Wt::WApplication {
-private:
-    wittyPlus::Session* _session;
+class App : public wittyPlus::App {
 public:
-    App(const Wt::WEnvironment& env) : Wt::WApplication(env) {
+    App(const Wt::WEnvironment& env) : wittyPlus::App(env) {
         setTheme(new Wt::WCssTheme("polished", this));
         messageResourceBundle().use(appRoot() + "messages/MainWindow");
         useStyleSheet("/css/footprint.css");
         std::string db;
         readConfigurationProperty("db", db);
         std::cerr << "DB is: " << db << std::endl;
-        _session = new wittyPlus::Session(db);
         // Run!
         new widgets::MainWindow(root());
     };

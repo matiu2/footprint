@@ -13,7 +13,7 @@ private:
     Session* _session;
     Auth* _auth;
 public:
-    App(Wt::WEnvironment& env) : Wt::WApplication(env) {
+    App(const Wt::WEnvironment& env) : Wt::WApplication(env) {
         std::string db;
         readConfigurationProperty("db", db);
         _session = new Session(db);

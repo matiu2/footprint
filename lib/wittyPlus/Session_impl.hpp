@@ -17,7 +17,7 @@ struct Session::Impl {
     dbo::Session& session;
     dbo::backend::Postgres connection;
     UserDatabase users;
-    Wt::Auth::Login _login;
+    Wt::Auth::Login login;
     Impl(dbo::Session& session, const std::string& db) : session(session), connection(db), users(session) {
         if (connection.connection() == nullptr)
             throw std::logic_error(std::string("Unable to connect to database: ") + db);

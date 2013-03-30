@@ -32,8 +32,16 @@ const Wt::Auth::AuthService* Auth::authService() {
     return &_impl->services->authService;
 }
 
-const Wt::Auth::AbstractUserDatabase* Auth::users() {
+const Wt::Auth::PasswordService* Auth::passwordService() {
+    return &_impl->services->passwordService;
+}
+
+Wt::Auth::AbstractUserDatabase* Auth::users() {
     return &_impl->session_impl->users;
+}
+
+Wt::Auth::Login* Auth::login() {
+    return &_impl->session_impl->login;
 }
 
 }
