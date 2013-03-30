@@ -17,7 +17,6 @@ public:
     Wt::Auth::PasswordService passwordService;
     std::vector<const Wt::Auth::OAuthService*> oAuthService;
     Auth() : passwordService(authService) {}
-    ~Auth() {}
 };
 
 Server::Server(const std::string &wtApplicationPath, const std::string &wtConfigurationFile)
