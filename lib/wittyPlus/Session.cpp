@@ -3,9 +3,9 @@
 
 #include <Wt/WLogger>
 
-namespace footprint {
+namespace wittyPlus {
 
 Session::Session(const std::string& db) : _impl(new Impl(*this, db)) {
 }
 
-} // namespace footprint
+} // namespace wittyPlus

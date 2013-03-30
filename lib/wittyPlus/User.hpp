@@ -6,6 +6,7 @@
 
 namespace dbo = Wt::Dbo;
 
+namespace wittyPlus {
 namespace db {
 
 class User;
@@ -19,5 +20,6 @@ public:
     }
 };
 
+}
 }
 #endif // USER_HPP

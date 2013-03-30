@@ -1,7 +1,7 @@
 #include "Server.hpp"
 #include "Server_auth.hpp"
 
-namespace footprint {
+namespace wittyPlus {
 
 Server::Server(int argc, char** argv) : Wt::WServer(argv[0]) {
     setServerConfiguration(argc, argv);

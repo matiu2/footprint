@@ -11,7 +11,7 @@
 #include <Wt/Auth/GoogleService>
 #include <Wt/Auth/FacebookService>
 
-namespace footprint {
+namespace wittyPlus {
 
 struct Server::Auth {
     Wt::Auth::AuthService authService;

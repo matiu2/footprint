@@ -7,8 +7,9 @@
 #include <Wt/WText>
 #include <Wt/WCssTheme>
 
+#include <wittyPlus/Session.hpp>
+
 #include "Colors.hpp"
-#include "Session.hpp"
 
 #include "../../widgets/MainWindow.hpp"
 
@@ -17,7 +18,7 @@ namespace footprint {
 /// The Application object for the footprint security website
 class App : public Wt::WApplication {
 private:
-    Session* _session;
+    wittyPlus::Session* _session;
 public:
     App(const Wt::WEnvironment& env) : Wt::WApplication(env) {
         setTheme(new Wt::WCssTheme("polished", this));
@@ -26,7 +27,7 @@ public:
         std::string db;
         readConfigurationProperty("db", db);
         std::cerr << "DB is: " << db << std::endl;
-        _session = new Session(db);
+        _session = new wittyPlus::Session(db);
         // Run!
         new widgets::MainWindow(root());
     };

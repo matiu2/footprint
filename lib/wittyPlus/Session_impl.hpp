@@ -6,9 +6,10 @@
 #include <Wt/Dbo/backend/Postgres>
 #include <Wt/Auth/Dbo/UserDatabase>
 #include <Wt/Auth/Login>
-#include "db/User.hpp"
 
-namespace footprint {
+#include "User.hpp"
+
+namespace wittyPlus {
 
 typedef Wt::Auth::Dbo::UserDatabase<db::AuthInfo> UserDatabase;
 

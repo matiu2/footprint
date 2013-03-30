@@ -5,7 +5,7 @@
 
 #include <Wt/Dbo/Session>
 
-namespace footprint {
+namespace wittyPlus {
 
 namespace dbo = Wt::Dbo;
 
@@ -21,6 +21,6 @@ public:
     Impl* impl() { return _impl.get(); } // Only used by Auth.cpp
 };
 
-} // namespace footprint
+} // namespace wittyPlus
 
 #endif // FOOTPRINT_SESSION_HPP

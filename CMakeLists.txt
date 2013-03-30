@@ -31,10 +31,15 @@ endif()
 SET( WT_LIBS ${WT} ${WT_HTTP} ${WT_DBO} ${WT_DBO_POSTGRES} )
 
 find_library(POSTGRES_LIBRARY pq)
-message(STATUS "Found postgres library: ${POSTGRES_LIBRARY}" )
 
 # Basically everything will link against ${COMMON_LIBS}
 SET( COMMON_LIBS ${WT_LIBS} ${BOOST_LIBS} ${POSTGRES_LIBRARY} )
+
+# Use our own copy of wittyPlus for now
+include_directories("lib")
+add_subdirectory("lib/wittyPlus")
+
+SET( COMMON_LIBS wittyPlus ${COMMON_LIBS} )
 
 # User variables for the build/install 
 set(ETC "etc" CACHE PATH "The config dir")

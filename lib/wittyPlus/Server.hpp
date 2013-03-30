@@ -5,7 +5,7 @@
 
 #include <Wt/WServer>
 
-namespace footprint {
+namespace wittyPlus {
 
 class Server : public Wt::WServer {
 public:

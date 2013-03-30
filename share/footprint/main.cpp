@@ -3,12 +3,13 @@
 #include <iostream>
 #include <signal.h>
 
+#include <wittyPlus/Server.hpp>
+
 #include "App.hpp"
-#include "Server.hpp"
 
 int main(int argc, char** argv) {
     try {
-        footprint::Server server(argc, argv);
+        wittyPlus::Server server(argc, argv);
         server.addEntryPoint(Wt::Application, [](const Wt::WEnvironment& env){ return new footprint::App(env); });
         if (server.start()) {
             int sig = Wt::WServer::waitForShutdown(argv[0]);

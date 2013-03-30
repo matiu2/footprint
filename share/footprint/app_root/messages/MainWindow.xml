@@ -15,6 +15,7 @@
       <div id="pre-footer"></div>
       <div id="footer">
         <div>This is just a sample footer, but you can put whatever you want here. Perhaps an address or copyright information</div>
+        <div>${login}</div>
       </div>
     </div>
   </message>
