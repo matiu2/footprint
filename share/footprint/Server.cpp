@@ -1,27 +1,11 @@
 #include "Server.hpp"
-
-#include <Wt/Auth/AuthService>
-#include <Wt/Auth/HashFunction>
-#include <Wt/Auth/PasswordService>
-#include <Wt/Auth/PasswordStrengthValidator>
-#include <Wt/Auth/PasswordVerifier>
-#include <Wt/Auth/OAuthService>
-#include <Wt/Auth/GoogleService>
-#include <Wt/Auth/FacebookService>
+#include "Server_auth.hpp"
 
 namespace footprint {
 
-class Server::Auth {
-public:
-    Wt::Auth::AuthService authService;
-    Wt::Auth::PasswordService passwordService;
-    std::vector<const Wt::Auth::OAuthService*> oAuthService;
-    Auth() : passwordService(authService) {}
-};
-
-Server::Server(const std::string &wtApplicationPath, const std::string &wtConfigurationFile)
-    : Wt::WServer(wtApplicationPath, wtConfigurationFile), _auth(new Auth()) {
-
+Server::Server(int argc, char** argv) : Wt::WServer(argv[0]) {
+    setServerConfiguration(argc, argv);
+    _auth.reset(new Auth());
 }
 
 Server::~Server() {}

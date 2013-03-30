@@ -3,13 +3,12 @@
 #include <iostream>
 #include <signal.h>
 
-#include "Server.hpp"
 #include "App.hpp"
+#include "Server.hpp"
 
 int main(int argc, char** argv) {
     try {
-        footprint::Server server(argv[0]);
-        server.setServerConfiguration(argc, argv, WTHTTP_CONFIGURATION);
+        footprint::Server server(argc, argv);
         server.addEntryPoint(Wt::Application, [](const Wt::WEnvironment& env){ return new footprint::App(env); });
         if (server.start()) {
             int sig = Wt::WServer::waitForShutdown(argv[0]);

@@ -8,14 +8,16 @@
 namespace footprint {
 
 class Server : public Wt::WServer {
-private:
-    class Auth;
-    std::unique_ptr<Auth> _auth;
 public:
-    Server(const std::string &wtApplicationPath=std::string(), const std::string &wtConfigurationFile=std::string());
+    struct Auth;
+private:
+    std::unique_ptr<Auth> _auth;
+    friend class Auth;
+public:
+    Server(int argc, char** argv);
     ~Server();
+    static Server* instance() { return dynamic_cast<Server*>(Wt::WServer::instance()); }
 };
 
 }
-
 #endif // SERVER_HPP
