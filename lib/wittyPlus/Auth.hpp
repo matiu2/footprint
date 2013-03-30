@@ -20,6 +20,7 @@ public:
     const Wt::Auth::PasswordService* passwordService();
     Wt::Auth::AbstractUserDatabase* users();
     Wt::Auth::Login* login();
+    static Auth* instance();
 };
 
 }

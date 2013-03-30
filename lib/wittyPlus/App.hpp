@@ -20,6 +20,7 @@ public:
         _auth = new Auth(this);
     }
     Session* session() { return _session; }
+    Auth* auth() { return _auth; }
 };
 
 } // namespace wittyPlus

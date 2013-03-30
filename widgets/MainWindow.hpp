@@ -3,6 +3,7 @@
 
 #include <Wt/WContainerWidget>
 
+namespace footprint {
 namespace widgets {
 
 class MainWindow : public Wt::WContainerWidget {
@@ -11,5 +12,6 @@ public:
 };
 
 } // namespace widgets
+} // namespace footprint
 
 #endif // WIDGETS_MAINWINDOW_H

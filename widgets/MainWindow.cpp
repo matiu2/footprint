@@ -5,7 +5,9 @@
 #include <Wt/WApplication>
 
 #include "../share/footprint/Colors.hpp"
+#include "Auth.hpp"
 
+namespace footprint {
 namespace widgets {
 
 void applyColors() {
@@ -25,6 +27,8 @@ void applyColors() {
 MainWindow::MainWindow(Wt::WContainerWidget* parent) : Wt::WContainerWidget(parent) {
     auto tmpl = new Wt::WTemplate(tr("main-template"), this);
     applyColors();
+    tmpl->bindWidget("content", new Auth());
 }
 
 } // namespace widgets
+} // namespace footprint

@@ -1,6 +1,6 @@
 project(widgets)
 
-add_library(footprint_widgets SHARED MainWindow.cpp)
+add_library(footprint_widgets SHARED MainWindow.cpp Auth.cpp)
 target_link_libraries( footprint_widgets ${COMMON_LIBS} )
 
 install(TARGETS footprint_widgets

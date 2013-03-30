@@ -44,4 +44,9 @@ Wt::Auth::Login* Auth::login() {
     return &_impl->session_impl->login;
 }
 
+Auth* Auth::instance() {
+    App* app = dynamic_cast<App*>(Wt::WApplication::instance());
+    return app->auth();
+}
+
 }
