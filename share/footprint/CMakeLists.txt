@@ -1,6 +1,6 @@
 project(share-footprint)
 
-add_executable( footprint main.cpp Colors.cpp )
+add_executable( footprint main.cpp App.cpp Colors.cpp )
 target_link_libraries( footprint footprint_widgets ${COMMON_LIBS} )
 
 install(TARGETS footprint

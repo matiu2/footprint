@@ -35,6 +35,8 @@ find_library(POSTGRES_LIBRARY pq)
 # Basically everything will link against ${COMMON_LIBS}
 SET( COMMON_LIBS ${WT_LIBS} ${BOOST_LIBS} ${POSTGRES_LIBRARY} )
 
+enable_testing()
+
 # Use our own copy of wittyPlus for now
 include_directories("lib")
 add_subdirectory("lib/wittyPlus")
@@ -52,7 +54,6 @@ add_subdirectory(etc)
 add_subdirectory(bin)
 add_subdirectory(share/footprint)
 #add_subdirectory(compass)
-#enable_testing()
 #add_subdirectory(tests)
 
 # Nice work env

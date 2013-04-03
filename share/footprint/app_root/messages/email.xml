@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<messages>
+    <message id="Wt.auth.verification-mail.subject">Login info for footprintsecurity.com</message>
+    <!-- with {1} a place holder for the identity, and {2} a placeholder for the redirection URL. -->
+    <message id="Wt.auth.verification-mail.body")>
+        Your username is: {1}
+
+        Click here to get a password: {2}
+    </message>
+    <!-- with {1} a place holder for the identity, and {2} a placeholder for the redirection URL. -->
+    <message id="Wt.auth.verification-mail.htmlbody">
+        <dl>
+            <dt>Your username is:</dt>
+            <dd>{1}</dd>
+            <dt>Click here to get a password:</dt>
+            <dd>{2}</dd>
+        </dl>
+    </message>
+</messages>
