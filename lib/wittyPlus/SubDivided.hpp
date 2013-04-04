@@ -12,6 +12,20 @@
 
 namespace wittyPlus {
 
+template<typename T, typename T2>
+bool lteq(T first1, T last1, T2 first2, T2 last2) {
+    /// Lexographical compare between two sequences. Returns true if first1..last1 <= first2..last2
+    while (first2!=last2) {
+        if ((first1 == last1) || (*first1 < *first2))
+            return true;
+        if (first1 > first2)
+            return false;
+        ++first1;
+        ++first2;
+    }
+    return true;
+}
+
 template<typename T>
 struct Part {
     typedef typename T::const_iterator const_iterator;
@@ -23,6 +37,7 @@ struct Part {
     Part(range_type range) : range(range) {}
     Part(const_iterator a, const_iterator b) : range{a, b} {}
     Part() : range{const_iterator(), const_iterator()} {}
+    Part(const T& other) : range{other.begin(), other.end()} {}
 
     const_iterator begin() const { return range.first; }
     const_iterator end() const { return range.second; }
@@ -54,22 +69,32 @@ struct Part {
     bool operator <(const T2& other) const {
         return std::lexicographical_compare(begin(), end(), other.begin(), other.end());
     }
-    bool operator <(const T* other) const {
-        T* last = other;
+    template<typename T2>
+    bool operator <(const T2* other) const {
+        const T2* last = other;
         while (*last++) {} // Find the end (eg. '\0' for char*)
-        return std::lexicographical_compare(begin(), end(), other, last-1, [](T a, T b){return a <= b;});
+        return std::lexicographical_compare(begin(), end(), other, last-1);
     }
 
-    /*
-    bool operator >(const T& other) const { return !((*this < other)); }
-    bool operator >(const T* other) const { return !((*this < other)); }
 
-    bool operator <=(const T& other) const { return !((*this > other)); }
-    bool operator <=(const T* other) const { return !((*this > other)); }
+    template<typename T2>
+    bool operator <=(const T2& other) const { return lteq(begin(), end(), other.begin(), other.end()); }
+    template<typename T2>
+    bool operator <=(const T2* other) const {
+        T2* last = other;
+        while (*last++) {} // Find the end (eg. '\0' for char*)
+        return lteq(begin(), end(), other, last-1);
+    }
 
-    bool operator >=(const T& other) const { return compare(other, [](value_type a, typename value_type b){ return a >= b; }); }
-    bool operator >=(const T* other) const { return compare(other, [](value_type a, T b){ return a >= b; }); }
-    */
+    template<typename T2>
+    bool operator >(const T2& other) const { return !(lteq(begin(), end(), other.begin(), other.end())); }
+    template<typename T2>
+    bool operator >(const T2* other) const { return !((*this) <= other); }
+
+    template<typename T2>
+    bool operator >=(const T2& other) const { return !((*this) < other); }
+    template<typename T2>
+    bool operator >=(const T2* other) const { return !((*this) < other); }
 };
 
 bool operator !=(const char* a, const Part<std::string>& b) { return !(b == a); }
@@ -128,5 +153,7 @@ DelimitedPart<T> split(const T& whole, typename T::value_type delimeter) {
     return DelimitedPart<T>(make_pair(whole.begin(), whole.end()), delimeter);
 }
 
+template <typename T>
+Part<T> make_part(const T& in) { return Part<T>(in); }
 
 }

@@ -8,8 +8,36 @@
 #include <algorithm>
 
 int main(int, char**) {
-    std::string path = "/path/to/somewhere/";
 
+    std::string abc("abc");
+    std::string abc2("abc");
+    std::string abcd("abcd");
+    std::string abd("abd");
+    // Test comparison operators
+
+    using wittyPlus::make_part;
+
+    assert(make_part(abc) == make_part(abc2));
+    assert(make_part(abc) <= make_part(abc2));
+    assert(make_part(abc) >= make_part(abc2));
+
+    assert(make_part(abc) < make_part(abcd));
+    assert(make_part(abc) < make_part(abd));
+    assert(make_part(abc) <= make_part(abcd));
+    assert(make_part(abc) <= make_part(abd));
+
+    assert(make_part(abcd) > make_part(abc));
+    assert(make_part(abd) > make_part(abc));
+    assert(make_part(abcd) >= make_part(abc));
+    assert(make_part(abd) >= make_part(abc));
+
+    assert(make_part(abd) != make_part(abc));
+    assert(make_part(abcd) != make_part(abc));
+
+
+    // Test splitting
+
+    std::string path = "/path/to/somewhere/";
     auto part = wittyPlus::split(path, '/');
 
     assertEqual("path", part);

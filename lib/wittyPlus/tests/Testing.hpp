@@ -25,5 +25,5 @@ void _assertEqual(const T1& a, const T2& b, int line, const char* file, const st
 
 #define assertEqual(a,b) _assertEqual(a, b, __LINE__, __FILE__)
 #define assertEqualMsg(a,b,msg) _assertEqual(a, b, __LINE__, __FILE__, msg)
-#define assert(a,b) _assert(a, b, __LINE__, __FILE__)
-#define assertMsg(a,b,msg) _assert(a, b, __LINE__, __FILE__, msg)
+#define assert(a) _assert(a, __LINE__, __FILE__)
+#define assertMsg(a,msg) _assert(a, __LINE__, __FILE__, msg)
