@@ -7,14 +7,19 @@
 int main(int, char**) {
     std::string path = "/path/to/somewhere/";
 
-    auto broken = wittyPlus::split(path, '/');
+    auto part = wittyPlus::SubDivided<std::string>(path, '/');
 
-    assertEqual(3, broken.size(), "Need 3 members");
-    assertEqual("path", broken[0]);
-    assertEqual("to", broken[1]);
-    assertEqual("somewhere", broken[2]);
+    assertEqual("path", part);
+    ++part;
+    assertEqual("to", part++);
+    assertEqual("somewhere", part++);
+    assertEqual(wittyPlus::SubDivided<std::string>(), part);
+    assertEqual("", part);
 
-    std::string part("path");
+    part = wittyPlus::SubDivided<std::string>(path, '/');
 
-    assertEqual(broken[0], part);
+    assertEqual(std::string("path"), part++);
+    assertEqual(std::string("to"), part++);
+    assertEqual(std::string("somewhere"), part++);
+
 }
