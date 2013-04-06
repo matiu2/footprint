@@ -15,9 +15,8 @@ public:
 public:
     Urls(Wt::WObject* parent);
     static Urls& instance();
-    void register(const std::string& url, std::function<void(const std::string&)> callMe);
-    void register(const std::string& url, std::function<void()> callMe);
-    void register(const std::string& url, Wt::WWidget* widget);
+    void addPath(const std::string& url, std::function<void(const std::string&)> callMe);
+    void addPath(const std::string& url, Wt::WWidget* widget);
 };
 
 } // namespace wittyPlus
