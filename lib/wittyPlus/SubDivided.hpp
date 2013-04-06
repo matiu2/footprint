@@ -76,7 +76,6 @@ struct Part {
         return std::lexicographical_compare(begin(), end(), other, last-1);
     }
 
-
     template<typename T2>
     bool operator <=(const T2& other) const { return lteq(begin(), end(), other.begin(), other.end()); }
     template<typename T2>
@@ -95,6 +94,12 @@ struct Part {
     bool operator >=(const T2& other) const { return !((*this) < other); }
     template<typename T2>
     bool operator >=(const T2* other) const { return !((*this) < other); }
+
+    operator std::string() {
+        std::string result;
+        std::copy(begin(), end(), std::back_inserter(result));
+        return result;
+    }
 };
 
 bool operator !=(const char* a, const Part<std::string>& b) { return !(b == a); }
@@ -149,7 +154,7 @@ std::ostream& operator <<(std::ostream& out, const Part<T>& s) {
 }
 
 template <typename T>
-DelimitedPart<T> split(const T& whole, typename T::value_type delimeter) {
+DelimitedPart<T> lazySplit(const T& whole, typename T::value_type delimeter) {
     return DelimitedPart<T>(make_pair(whole.begin(), whole.end()), delimeter);
 }
 
