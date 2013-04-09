@@ -34,7 +34,7 @@ boost_test(
 
 boost_test(
     sub_divided
-    comparison_operators
+    comparison
     lazy_splitting
     lazy_splitting_strings
     sorting

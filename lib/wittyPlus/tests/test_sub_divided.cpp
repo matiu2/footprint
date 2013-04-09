@@ -45,7 +45,7 @@ BOOST_AUTO_TEST_CASE( comparison ) {
     BOOST_CHECK(make_part(abcd) != make_part(abc));
 }
 
-BOOST_AUTO_TEST_CASE( lazy_splittng ) {
+BOOST_AUTO_TEST_CASE( lazy_splitting ) {
 
     // Test splitting
 
@@ -57,7 +57,7 @@ BOOST_AUTO_TEST_CASE( lazy_splittng ) {
     BOOST_CHECK_EQUAL("", part);
 }
 
-BOOST_AUTO_TEST_CASE( lazy_splittng_strings ) {
+BOOST_AUTO_TEST_CASE( lazy_splitting_strings ) {
     // Does it work with strings ?
     part = wittyPlus::lazySplit(path, '/');
 
