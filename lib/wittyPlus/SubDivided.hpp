@@ -104,6 +104,7 @@ struct Part {
 
 bool operator !=(const char* a, const Part<std::string>& b) { return !(b == a); }
 bool operator !=(const std::string& a, const Part<std::string>& b) { return !(b == a); }
+bool operator ==(const std::string& a, const Part<std::string>& b) { return b == a; }
 template <typename T>
 bool operator !=(const Part<T>& a, const Part<T>& b) { return !(b == a); }
 

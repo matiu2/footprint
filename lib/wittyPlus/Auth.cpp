@@ -27,7 +27,6 @@ Auth::Auth(Wt::WApplication* app) {
     _impl = new Impl(this, dynamic_cast<App*>(app));
 }
 
-
 const Wt::Auth::AuthService* Auth::authService() {
     return &_impl->services->authService;
 }

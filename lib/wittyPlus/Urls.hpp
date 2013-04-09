@@ -5,6 +5,7 @@
 #include <string>
 
 #include <Wt/WWidget>
+#include <Wt/WSignal>
 
 namespace wittyPlus {
 
@@ -13,8 +14,8 @@ public:
     struct Impl;
     Impl* _impl;
 public:
-    Urls(Wt::WObject* parent);
-    static Urls& instance();
+    Urls(Wt::WObject* parent, Wt::Signal<std::string>& internalPath);
+    static Urls* instance();
     void addPath(const std::string& url, std::function<void(const std::string&)> callMe);
     void addPath(const std::string& url, Wt::WWidget* widget);
 };

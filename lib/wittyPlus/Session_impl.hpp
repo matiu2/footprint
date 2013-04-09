@@ -3,7 +3,13 @@
 
 #include <stdexcept>
 
+
+#ifdef POSTGRES
 #include <Wt/Dbo/backend/Postgres>
+#else
+#include <Wt/Dbo/backend/Sqlite3>
+#endif
+
 #include <Wt/Auth/Dbo/UserDatabase>
 #include <Wt/Auth/Login>
 
@@ -14,8 +20,12 @@ namespace wittyPlus {
 typedef Wt::Auth::Dbo::UserDatabase<db::AuthInfo> UserDatabase;
 
 struct Session::Impl {
-    dbo::Session& session;
+    #ifdef POSTGRES
     dbo::backend::Postgres connection;
+    #else
+    dbo::backend::Sqlite3 connection;
+    #endif
+    dbo::Session& session;
     UserDatabase users;
     Wt::Auth::Login login;
     Impl(dbo::Session& session, const std::string& db) : session(session), connection(db), users(session) {
