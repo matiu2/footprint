@@ -28,11 +28,40 @@ BOOST_AUTO_TEST_CASE( simple ) {
     if (found == root.end())
         BOOST_FAIL("No node added to registry");
     wittyPlus::UrlTreeBranch* branch = found->second;
+    BOOST_REQUIRE(branch);
     branch->onSelected("products");
     BOOST_REQUIRE(called);
 }
 
-BOOST_AUTO_TEST_CASE( urls_test ) {
+BOOST_AUTO_TEST_CASE( triple ) {
+    std::string result="";
+    auto callBack = [&](const std::string& url) { result = url; };
+    urls.addPath("products/edit/attributes", callBack);
+    auto& root = urls._impl->registry;
+    // First Level exists "products"
+    auto found = root.find("products");
+    if (found == root.end())
+        BOOST_FAIL("No node added to registry");
+    wittyPlus::UrlTreeBranch* branch = found->second;
+    BOOST_REQUIRE(branch);
+    // Second level exists "edit"
+    found = branch->children.find("edit");
+    if (found == root.end())
+        BOOST_FAIL("No second node");
+    branch = found->second;
+    BOOST_REQUIRE(branch);
+    // Second level exists "attributes"
+    found = branch->children.find("attributes");
+    if (found == root.end())
+        BOOST_FAIL("No third node");
+    branch = found->second;
+    BOOST_REQUIRE(branch);
+    // Should be here now
+    branch->onSelected("products/edit/attributes/4");
+    BOOST_CHECK_EQUAL(result, "products/edit/attributes/4");
+}
+
+BOOST_AUTO_TEST_CASE( full ) {
 
     std::stringstream events;
     std::stringstream expected;

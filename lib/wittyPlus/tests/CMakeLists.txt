@@ -29,7 +29,8 @@ boost_test(
     urls
     empty
     simple
-    urls_test
+    triple
+    full
 )
 
 boost_test(

@@ -36,14 +36,14 @@ struct Urls::Impl : public Wt::WObject {
         auto part = lazySplit(path, '/');
         const UrlTreeBranch* branch;
         {
-            auto found = registry.find(part);
+            auto found = registry.find(part++);
             if (found == registry.end())
                 throw NotFound(path);
             branch = found->second;
         }
         while (part) {
             auto found = branch->children.find(part++);
-            if (found == registry.end())
+            if (found == branch->children.end())
                 break;
             branch = found->second;
         }
