@@ -42,6 +42,7 @@
             <!-- <property name="baseURL">"http://mysite.com/app</property> -->
             <property name="resourcesURL">resources/</property>
             <property name="extBaseURL">ext/</property>
+            <property name="users">matiu:msherborne@gmail.com</property>
             <property name="db">host=localhost dbname=footprint user=footprint password=security</property>
 	    <!-- <property name="favicon">images/favicon.ico</property> -->
 	</properties>
