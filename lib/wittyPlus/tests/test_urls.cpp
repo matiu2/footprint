@@ -88,9 +88,14 @@ BOOST_AUTO_TEST_CASE( full ) {
         }
     };
 
+    check("/products/cameras", "Show");
     check("/products/cameras/1", "Show");
+    check("/products/cameras/1/2/3", "Show");
+    check("/products/cameras/1/2/3?a=b&c=d", "Show");
     check("/products/cameras/edit", "Edit");
     check("/products/cameras/edit/1", "Edit");
+    check("/products/cameras/edit/1/2/3", "Edit");
+    check("/products/cameras/edit/1/2/3?a=b&c=d", "Edit");
 }
 
 BOOST_AUTO_TEST_SUITE_END()
