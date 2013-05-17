@@ -102,9 +102,11 @@ struct Part {
     }
 };
 
-bool operator !=(const char* a, const Part<std::string>& b) { return !(b == a); }
-bool operator !=(const std::string& a, const Part<std::string>& b) { return !(b == a); }
-bool operator ==(const std::string& a, const Part<std::string>& b) { return b == a; }
+typedef Part<std::string> StringPart;
+
+bool operator !=(const char* a, const StringPart& b) { return !(b == a); }
+bool operator !=(const std::string& a, const StringPart& b) { return !(b == a); }
+bool operator ==(const std::string& a, const StringPart& b) { return b == a; }
 template <typename T>
 bool operator !=(const Part<T>& a, const Part<T>& b) { return !(b == a); }
 
@@ -161,5 +163,7 @@ DelimitedPart<T> lazySplit(const T& whole, typename T::value_type delimeter) {
 
 template <typename T>
 Part<T> make_part(const T& in) { return Part<T>(in); }
+
+typedef DelimitedPart<std::string> DelimStringPart;
 
 }

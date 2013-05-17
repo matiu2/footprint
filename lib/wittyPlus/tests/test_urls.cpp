@@ -27,7 +27,7 @@ BOOST_AUTO_TEST_CASE( simple ) {
     auto found = root.find("products");
     if (found == root.end())
         BOOST_FAIL("No node added to registry");
-    wittyPlus::UrlTreeBranch* branch = found->second;
+    wittyPlus::UrlTreeBranch* branch = found->second.get();
     BOOST_REQUIRE(branch);
     branch->onSelected("products");
     BOOST_REQUIRE(called);
@@ -42,19 +42,19 @@ BOOST_AUTO_TEST_CASE( triple ) {
     auto found = root.find("products");
     if (found == root.end())
         BOOST_FAIL("No node added to registry");
-    wittyPlus::UrlTreeBranch* branch = found->second;
+    wittyPlus::UrlTreeBranch* branch = found->second.get();
     BOOST_REQUIRE(branch);
     // Second level exists "edit"
     found = branch->children.find("edit");
     if (found == root.end())
         BOOST_FAIL("No second node");
-    branch = found->second;
+    branch = found->second.get();
     BOOST_REQUIRE(branch);
     // Second level exists "attributes"
     found = branch->children.find("attributes");
     if (found == root.end())
         BOOST_FAIL("No third node");
-    branch = found->second;
+    branch = found->second.get();
     BOOST_REQUIRE(branch);
     // Should be here now
     branch->onSelected("products/edit/attributes/4");
@@ -63,31 +63,34 @@ BOOST_AUTO_TEST_CASE( triple ) {
 
 BOOST_AUTO_TEST_CASE( full ) {
 
-    std::stringstream events;
-    std::stringstream expected;
+    std::string whatWasCalled = "Nothing";
+    std::string urlReturned = "";
 
     urls.addPath("products/cameras/edit", [&](const std::string& url) {
-        events.clear();
-        events << "edit: " << url;});
+        whatWasCalled = "Edit";
+        urlReturned = url;
+    });
     urls.addPath("products/cameras", [&](const std::string& url) {
-        events.clear();
-        events << "show: " << url;});
-
-    auto check = [&](const std::string& url, const std::string& action) {
-        events.clear();
-        expected.clear();
-        expected << action << ": " << url;
-        pathChanged(url);
-        BOOST_CHECK_EQUAL(expected.str(), events.str());
+        whatWasCalled = "Show";
+        urlReturned = url;
+    });
+    auto check = [&](const std::string& expectedUrl, const std::string& expectedCall) {
+        whatWasCalled = "Nothing";
+        urlReturned = "";
+        pathChanged(expectedUrl);
+        BOOST_CHECK_EQUAL(expectedUrl, urlReturned);
+        if (expectedCall != whatWasCalled) {
+            std::stringstream msg;
+            msg << "For url: '" << expectedUrl << "' "
+                << "we expected '" << expectedCall << "' to be called "
+                << "but '" << whatWasCalled << "' was called instead";
+            BOOST_ERROR(msg.str());
+        }
     };
 
-    const char *show = "show",
-               *edit = "edit";
-
-
-    check("/products/cameras/1", show);
-    check("/products/cameras/edit", edit);
-    check("/products/cameras/edit/1", edit);
+    check("/products/cameras/1", "Show");
+    check("/products/cameras/edit", "Edit");
+    check("/products/cameras/edit/1", "Edit");
 }
 
 BOOST_AUTO_TEST_SUITE_END()

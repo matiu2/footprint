@@ -17,9 +17,12 @@ Urls* Urls::instance() {
 
 void Urls::addPath(const std::string& path, std::function<void(const std::string&)> callMe) {
     auto part = lazySplit(path, '/');
-    UrlTreeBranch* branch = _impl->registry.insert(handler_map::value_type(part++, new UrlTreeBranch())).first->second;
-    while (part)
-        branch = branch->children.insert(handler_map::value_type(part++, new UrlTreeBranch())).first->second;
+    HandlerMap* leaves = &(_impl->registry);
+    UrlTreeBranch* branch = nullptr;
+    while (part) {
+        branch = leaves->insert(HandlerMap::value_type(part++, HandlerEntry(new UrlTreeBranch()))).first->second.get();
+        leaves = &branch->children;
+    }
     branch->onSelected = callMe;
 }
 
