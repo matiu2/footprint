@@ -1,6 +1,6 @@
-#include "Urls_impl.hpp"
 
 #include "App.hpp"
+#include "Urls_impl.hpp"
 
 #include <Wt/WContainerWidget>
 
@@ -15,15 +15,8 @@ Urls* Urls::instance() {
     return app->urls();
 }
 
-void Urls::addPath(const std::string& path, std::function<void(const std::string&)> callMe) {
-    auto part = lazySplit(path, '/');
-    HandlerMap* leaves = &(_impl->registry);
-    UrlTreeBranch* branch = nullptr;
-    while (part) {
-        branch = leaves->insert(HandlerMap::value_type(part++, HandlerEntry(new UrlTreeBranch()))).first->second.get();
-        leaves = &branch->children;
-    }
-    branch->onSelected = callMe;
+void Urls::addPath(const std::string& path, PathHandler callMe) {
+    _impl->addHandler(path, callMe);
 }
 
 void Urls::addPath(const std::string& path, Wt::WWidget* widget) {

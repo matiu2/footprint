@@ -1,5 +1,4 @@
-#ifndef FOOTPRINT_SESSION_HPP
-#define FOOTPRINT_SESSION_HPP
+#pragma once
 
 #include <memory>
 
@@ -22,5 +21,3 @@ public:
 };
 
 } // namespace wittyPlus
-
-#endif // FOOTPRINT_SESSION_HPP

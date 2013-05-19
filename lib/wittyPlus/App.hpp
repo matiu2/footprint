@@ -1,5 +1,4 @@
-#ifndef WITTYPLUS_APP_HPP
-#define WITTYPLUS_APP_HPP
+#pragma once
 
 #include <Wt/WApplication>
 
@@ -30,5 +29,3 @@ public:
 };
 
 } // namespace wittyPlus
-
-#endif // WITTYPLUS_APP_HPP

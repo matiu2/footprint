@@ -1,15 +1,11 @@
 #pragma once
 #include "Session.hpp"
+#include "base_db/base_db.hpp"
 
 #include <stdexcept>
+#include <memory>
 
-
-#ifdef POSTGRES
-#include <Wt/Dbo/backend/Postgres>
-#else
-#include <Wt/Dbo/backend/Sqlite3>
-#endif
-
+#include <Wt/Dbo/SqlConnection>
 #include <Wt/Auth/Dbo/UserDatabase>
 #include <Wt/Auth/Login>
 
@@ -20,18 +16,12 @@ namespace wittyPlus {
 typedef Wt::Auth::Dbo::UserDatabase<db::AuthInfo> UserDatabase;
 
 struct Session::Impl {
-    #ifdef POSTGRES
-    dbo::backend::Postgres connection;
-    #else
-    dbo::backend::Sqlite3 connection;
-    #endif
+    std::unique_ptr<dbo::SqlConnection> connection;
     dbo::Session& session;
     UserDatabase users;
     Wt::Auth::Login login;
-    Impl(dbo::Session& session, const std::string& db) : session(session), connection(db), users(session) {
-        if (connection.connection() == nullptr)
-            throw std::logic_error(std::string("Unable to connect to database: ") + db);
-        session.setConnection(connection);
+    Impl(dbo::Session& session, const std::string& db) : session(session), connection(makeConnection(db)), users(session) {
+        session.setConnection(*connection);
         mapClasses();
         syncDatabase();
     }

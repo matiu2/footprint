@@ -1,21 +1,17 @@
-#ifndef URLS_IMPL_HPP
-#define URLS_IMPL_HPP
+#pragma once
+
+#include <map>
 
 #include "Urls.hpp"
 #include "SubDivided.hpp"
 
-#include <map>
-#include <memory>
-
-#include "exceptions.hpp"
-
 namespace wittyPlus {
 
-class UrlTreeBranch;
+struct UrlTreeBranch;
 
-typedef std::function<void(const std::string&)> PathHandler;
 typedef std::unique_ptr<UrlTreeBranch> HandlerEntry;
 typedef std::map<std::string, HandlerEntry> HandlerMap;
+typedef std::function<UrlTreeBranch*(HandlerMap* leaves, DelimStringPart part)> WalkingFunc;
 
 /** A linked-tree structure, that allows us to map a path of a url to a functor.
     For example, the tree could hold:
@@ -36,57 +32,27 @@ struct UrlTreeBranch {
     bool canCall() { return onSelected == nullptr; }
 };
 
-typedef std::function<UrlTreeBranch*(HandlerMap* leaves, DelimStringPart part)> WalkingFunc;
-
-struct Urls::Impl : public Wt::WObject {
+class Urls::Impl : public Wt::WObject {
+private:
+    /// The registry that maps urls to calls
     HandlerMap registry;
-    Impl(Wt::WObject* parent, Wt::Signal<std::string>& internalPathChanged) : Wt::WObject(parent) {
-        internalPathChanged.connect(this, &Impl::handleUrlChanged);
-    }
-    void handleUrlChanged(const std::string& path) {
-        UrlTreeBranch* branch = findBranch(path);
-        // If we didn't find any branches to handle the request, this is a bad url
-        if (branch == nullptr)
-            throw NotFound(path);
-        branch->onSelected(path);
-    }
-    UrlTreeBranch* addHandler(const std::string& url, PathHandler handler) {
-        return  registry.insert(
-            HandlerMap::value_type(
-                        url,
-                        HandlerEntry(new UrlTreeBranch())
-            )
-        ).first->second.get();
-    }
-
-    UrlTreeBranch* walkBranches(const std::string& path, WalkingFunc getNextBranch) {
-        /** Follows path to the the UrlTreeBranch that it leads to**/
-        auto part = lazySplit(path, '/');
-        HandlerMap* leaves = &registry;
-        UrlTreeBranch *branch = nullptr,
-                      *last_branch = nullptr;
-        while (part) {
-            last_branch = branch;
-            branch = getNextBranch(leaves, part++);
-            if (branch == nullptr)
-                return last_branch;
-            leaves = &branch->children;
-        }
-        return branch;
-    }
-
-    static UrlTreeBranch* findSingle(HandlerMap* leaves, DelimStringPart part) {
-        auto found = leaves->find(part++);
-        if (found == leaves->end())
-            return nullptr;
-        else
-            return found->second.get();
-    }
-
-    UrlTreeBranch* findBranch(const std::string& path) {
-        return walkBranches(path, findSingle);
-    }
+    /// Catches the signal for url changes and 
+    void handleUrlChanged(const std::string& path);
+    /// Walks the trees of the registry, and returns the best match for 'path'
+    UrlTreeBranch* walkBranches(const std::string& path, WalkingFunc getNextBranch);
+    /// Finds the next step in the path for a part
+    static UrlTreeBranch* findSingle(HandlerMap* leaves, DelimStringPart part);
+    /// Tries to find a single part of the path, then inserts it if it's not there
+    static UrlTreeBranch* addSingle(HandlerMap* leaves, DelimStringPart part);
+    /// Find a branch that matches path
+    UrlTreeBranch* findBranch(const std::string& path);
+public:
+    /// @param internalPathChanged use the signal from Wt::WApplication::internalPathChanged
+    Impl(Wt::WObject* parent, Wt::Signal<std::string>& internalPathChanged);
+    /// Needed because we hold a unique_ptr inside of registry
+    ~Impl();
+    /// Add a handler for when the application path changes to 'url'
+    void addHandler(const std::string& url, PathHandler handler);
 };
-}
 
-#endif // URLS_IMPL_HPP
+}

@@ -1,5 +1,4 @@
-#ifndef EXCEPTIONS_HPP
-#define EXCEPTIONS_HPP
+#pragma once
 
 #include <stdexcept>
 
@@ -14,5 +13,3 @@ public:
 };
 
 }
-
-#endif // EXCEPTIONS_HPP

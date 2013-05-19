@@ -29,6 +29,7 @@ BOOST_AUTO_TEST_CASE( simple ) {
         BOOST_FAIL("No node added to registry");
     wittyPlus::UrlTreeBranch* branch = found->second.get();
     BOOST_REQUIRE(branch);
+    BOOST_REQUIRE(branch->onSelected);
     branch->onSelected("products");
     BOOST_REQUIRE(called);
 }
@@ -57,6 +58,7 @@ BOOST_AUTO_TEST_CASE( triple ) {
     branch = found->second.get();
     BOOST_REQUIRE(branch);
     // Should be here now
+    BOOST_REQUIRE(branch->onSelected);
     branch->onSelected("products/edit/attributes/4");
     BOOST_CHECK_EQUAL(result, "products/edit/attributes/4");
 }

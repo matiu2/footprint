@@ -1,5 +1,4 @@
-#ifndef WITTYPLUS_URLS_HPP
-#define WITTYPLUS_URLS_HPP
+#pragma once
 
 #include <functional>
 #include <string>
@@ -9,6 +8,8 @@
 
 namespace wittyPlus {
 
+typedef std::function<void(const std::string&)> PathHandler;
+
 class Urls : Wt::WObject {
 public:
     struct Impl;
@@ -16,10 +17,8 @@ public:
 public:
     Urls(Wt::WObject* parent, Wt::Signal<std::string>& internalPath);
     static Urls* instance();
-    void addPath(const std::string& url, std::function<void(const std::string&)> callMe);
+    void addPath(const std::string& url, PathHandler callMe);
     void addPath(const std::string& url, Wt::WWidget* widget);
 };
 
 } // namespace wittyPlus
-
-#endif // WITTYPLUS_URLS_HPP

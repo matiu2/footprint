@@ -1,5 +1,4 @@
-#ifndef SERVER_HPP
-#define SERVER_HPP
+#pragma once
 
 #include <memory>
 
@@ -20,4 +19,3 @@ public:
 };
 
 }
-#endif // SERVER_HPP

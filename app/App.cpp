@@ -4,39 +4,25 @@
 #include <iterator>
 #include <sstream>
 #include <stdexcept>
+#include <vector>
 
 #include <Wt/Auth/Identity>
+
 #include <wittyPlus/Auth.hpp>
+#include <wittyPlus/SubDivided.hpp>
 
 
 namespace footprint {
 
-void ensureUsers(App* app) {
+void ensureUsers(const std::string& users) {
     /// Make sure our users from the config file exist
-    std::string input;
-    app->readConfigurationProperty("users", input);
-    // It's in the format: "username:email,username:email"
-    std::string id_pair;
+    /// @param users a string in the format "username:email,username:email"
     auto auth = wittyPlus::Auth::instance();
-    auto prev = input.begin();
-    decltype(prev) next;
-    auto readString = [&] (char delim) -> std::string {
-        next = std::find(prev, input.end(), delim);
-        if (next == input.end())
-            return "";
-        std::string out;
-        out.reserve(next - prev);
-        std::copy(prev, next-1, std::back_inserter(out));
-        prev = next+1;
-        return out;
-    };
-    while (1) {
-        // Read the username
-        std::string username = readString(':');
-        // Read the email address
-        std::string email =  readString(',');
-        if (email.empty())
-            break; // Nothing read
+    auto iPair = wittyPlus::lazySplit(users, ',');
+    while (iPair) {
+        auto pair = wittyPlus::lazySplit(iPair++, ':');
+        std::string username = pair++;
+        std::string email = pair++;
         auto user = auth->users()->findWithEmail(email);
         if (!user.isValid()) {
             // Create the user
@@ -54,17 +40,12 @@ App::App(const Wt::WEnvironment& env) : wittyPlus::App(env) {
     std::string db;
     readConfigurationProperty("db", db);
     std::cerr << "DB is: " << db << std::endl;
+    // Ensure that any users from the config file exist
+    std::string users;
+    readConfigurationProperty("users", users);
+    ensureUsers(users);
     // Run!
     new widgets::MainWindow(root());
 };
-
-void App::onUrlChange(const std::string& url) {
-    // Split it into parts
-    std::string part;
-    auto delim = std::find(url.begin(), url.end(), '/');
-    while (delim != url.end()) {
-    }
-}
-
 
 }
