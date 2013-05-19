@@ -8,5 +8,5 @@ set(EXTRA_TEST_LIBS base_db_sqlite app)
 boost_test(
     app
     empty
-    simple
+    ensureUsers
 )

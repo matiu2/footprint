@@ -32,10 +32,6 @@ else()
     find_library( WT_HTTP NAMES wthttp )
     find_library( WT_TEST NAMES wttest )
 endif()
-SET( WT_LIBS ${WT} ${WT_HTTP} )
-
-# Basically everything will link against ${COMMON_LIBS} (except DB)
-SET( COMMON_LIBS ${WT_LIBS} ${BOOST_LIBS} )
 
 add_library(test_base empty.cpp)
 TARGET_LINK_LIBRARIES(test_base ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${WT_TEST} ${SQLITE_LIBS})

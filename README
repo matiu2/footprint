@@ -9,10 +9,14 @@ make
 
 Directory Layout:
  + libs/ -- All the libraries we made specifically for this site
- + site/ -- The top level source code for the main site
+   * wittyPlus - the main library that the app is built on top of (for the moment we are developing it along side the app)
+ + app/ -- The top level source code for the main webapp
    + widgets -- The widgets that make up the main site
-   + models  -- The database models
-   + control -- The layer that binds widgets with models
-   + css     -- CSS generation and templates
+   + db  -- The database models
+   + app_root -- what will be installed in the approot (accesible to app at runtime)
+     + messages -- Strings and transation used
+   + doc_root -- accesible via web at runtime (holds css, etc)
+     + css     -- app specific css
+     + images/ -- static images
+     + resources/ -- stuff that the Wt library likes to publish on the web
    + tests   -- Testing suite
-   + messages -- Strings and transation used

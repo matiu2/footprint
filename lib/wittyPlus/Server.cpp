@@ -4,7 +4,6 @@
 namespace wittyPlus {
 
 Server::Server(int argc, char** argv) : Wt::WServer(argv[0]) {
-    setServerConfiguration(argc, argv);
     auth.reset(new Auth());
 }
 

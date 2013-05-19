@@ -1,0 +1,2 @@
+Work out a way to test loading of initial users from config.
+ * At the moment the Wt::WTestEnvironment doesn't work as it doesn't create a wittyplus server, but one of TestServer. As such the Auth service is not created.

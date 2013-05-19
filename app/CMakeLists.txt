@@ -16,7 +16,7 @@ set( DB_LIB base_db_sqlite )
 endif()
 
 add_executable( footprint main.cpp )
-target_link_libraries( footprint ${DB_LIB} app ) # DB_LIB must be first as wittyPlus session needs it
+target_link_libraries( footprint ${DB_LIB} app ${WT_HTTP} ) # DB_LIB must be first as wittyPlus session needs it
 
 install(TARGETS footprint
         RUNTIME DESTINATION ${SHARE})
