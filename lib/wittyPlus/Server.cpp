@@ -3,10 +3,12 @@
 
 namespace wittyPlus {
 
-Server::Server(int argc, char** argv) : Wt::WServer(argv[0]) {
+Server::Server(const std::string& path, const std::string& configFileName) : Wt::WServer(path, configFileName) {
     auth.reset(new Auth());
 }
 
-Server::~Server() {}
+Server::~Server() {
+    Wt::WServer::~WServer();
+}
 
 }

@@ -6,7 +6,7 @@
 # Any other args are the tests to run on it
 function(boost_test MAIN_NAME)
     set(EXE_NAME test_${MAIN_NAME})
-    ADD_EXECUTABLE(${EXE_NAME} test_${MAIN_NAME}.cpp)
+    ADD_EXECUTABLE(${EXE_NAME} test_${MAIN_NAME}.cpp ${EXTRA_SOURCES})
     TARGET_LINK_LIBRARIES(${EXE_NAME} ${EXTRA_TEST_LIBS} test_base )
     FOREACH(TEST IN ITEMS ${ARGN})
         ADD_TEST(

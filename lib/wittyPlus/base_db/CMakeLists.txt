@@ -26,4 +26,3 @@ else()
     add_library(base_db_sqlite SHARED base_db_sqlite.cpp)
     TARGET_LINK_LIBRARIES(base_db_sqlite ${WT_DBO} ${SQLITE_LIBRARY} ${WT_DBO_SQLITE} )
 endif()
-

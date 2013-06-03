@@ -1,5 +1,4 @@
-#ifndef USER_HPP
-#define USER_HPP
+#pragma once
 
 #include <Wt/Dbo/Dbo>
 #include <Wt/Auth/Dbo/AuthInfo>
@@ -22,4 +21,3 @@ public:
 
 }
 }
-#endif // USER_HPP

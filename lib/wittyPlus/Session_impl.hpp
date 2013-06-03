@@ -13,12 +13,14 @@
 
 namespace wittyPlus {
 
-typedef Wt::Auth::Dbo::UserDatabase<db::AuthInfo> UserDatabase;
+namespace db {
+  typedef Wt::Auth::Dbo::UserDatabase<AuthInfo> UserDatabase;
+}
 
 struct Session::Impl {
     std::unique_ptr<dbo::SqlConnection> connection;
     dbo::Session& session;
-    UserDatabase users;
+    db::UserDatabase users;
     Wt::Auth::Login login;
     Impl(dbo::Session& session, const std::string& db) : session(session), connection(makeConnection(db)), users(session) {
         session.setConnection(*connection);

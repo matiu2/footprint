@@ -2,7 +2,7 @@ project(footprint)
 
 add_subdirectory(widgets)
 
-add_library( app STATIC App.cpp Colors.cpp )
+add_library( app SHARED App.cpp Colors.cpp )
 target_link_libraries( app widgets )
 
 add_subdirectory(app_root)

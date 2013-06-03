@@ -1,3 +1,4 @@
+#pragma once
 /**
   The Wt Application object for the footprint website
 */

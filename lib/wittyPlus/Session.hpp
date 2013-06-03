@@ -17,6 +17,7 @@ private:
     void syncDatabase();
 public:
     Session(const std::string& db);
+    ~Session();
     Impl* impl() { return _impl.get(); } // Only used by Auth.cpp
 };
 

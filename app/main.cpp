@@ -9,7 +9,7 @@
 
 int main(int argc, char** argv) {
     try {
-        wittyPlus::Server server(argc, argv);
+        wittyPlus::Server server(argv[0], "");
         server.addEntryPoint(Wt::Application, [](const Wt::WEnvironment& env){ return new footprint::App(env); });
         if (server.start()) {
             int sig = Wt::WServer::waitForShutdown(argv[0]);
