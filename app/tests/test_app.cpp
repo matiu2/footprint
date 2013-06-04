@@ -9,7 +9,8 @@
 
 #include <Wt/Test/WTestEnvironment>
 #include <Wt/Auth/Identity>
-#include <wittyPlus/Server.hpp>
+
+#include <wittyPlus/Services.hpp>
 
 #include "../App.hpp"
 
@@ -17,9 +18,10 @@ namespace fs = boost::filesystem;
 
 class Fixture {
 private:
-    std::unique_ptr<Wt::Test::WTestEnvironment> _env;
     std::map<std::string, std::string> properties;
     void writeConfigFile() {
+        std::fstream config_file;
+        config_file.open(config_file_name().string(), std::ios_base::out);
         config_file << "<server>\n"
                     << "  <application-settings location=\"*\">\n"
                     << "    <properties>\n";
@@ -37,34 +39,28 @@ private:
     }
 public:
     fs::path temp_dir;
-    std::fstream config_file;
+    wittyPlus::Services services;
+    std::unique_ptr<Wt::Test::WTestEnvironment> _env;
     Fixture() : temp_dir(fs::unique_path()) {
         fs::create_directories(temp_dir);
         std::cout << config_file_name().string() << std::endl;
-        config_file.open(config_file_name().string(), std::ios_base::out);
         setProperty("db", temp_dir.string() + "/db");
     }
     ~Fixture() {
-        _env.reset(nullptr); // Delete the env first, while it can still read the temp dir
         fs::remove_all(temp_dir); // Delete the temp dir, after the 'env' is destroyed
     }
     fs::path config_file_name() { return temp_dir / "wt_config.xml"; }
     void setProperty(const std::string& name, const std::string& value) {
-        if (_env)
-            throw std::runtime_error("Can't set config file props");
         properties[name] = value;
     }
-    Wt::Test::WTestEnvironment* env() {
+    Wt::Test::WTestEnvironment& env() {
         if (!_env) {
             writeConfigFile();
-            // TODO: Move this to wittyPlus
-            _env.reset(new Wt::Test::WTestEnvironment(
-                           temp_dir.string(),  config_file_name().string(),
-                           Wt::EntryPointType::Application,
-                           new wittyPlus::Server(temp_dir.string(), temp_dir.string() + "/wt_config.xml")));
+            _env.reset(new Wt::Test::WTestEnvironment(temp_dir.string(), config_file_name().string()));
         }
-        return _env.get();
-    } };
+        return *_env.get();
+    }
+};
 
 BOOST_FIXTURE_TEST_SUITE( app_suite , Fixture );
 
@@ -74,9 +70,8 @@ BOOST_AUTO_TEST_CASE( empty ) {
 
 BOOST_AUTO_TEST_CASE( ensureUsers ) {
     /// Test that 'ensureUsers is called on app creation, and can parse the config correctly
-    // TODO: This test sits waiting for a non-existent thread when SocketNotifier's destructor joining a thread
     setProperty("users", "matiu:msherborne@gmail.com,happy:msherborne+happy@gmail.com");
-    footprint::App app(*env());
+    footprint::App app(env());
     auto auth = wittyPlus::Auth::instance();
     std::vector<std::pair<std::string, std::string>> expected = {
         {"matiu", "msherborne@gmail.com"},

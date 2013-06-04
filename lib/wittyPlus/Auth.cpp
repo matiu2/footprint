@@ -3,21 +3,21 @@
 #include <stdexcept>
 
 #include "Session_impl.hpp"
-#include "Server_auth.hpp"
+#include "Services.hpp"
 #include "App.hpp"
 
 namespace wittyPlus {
 
 struct Auth::Impl : public Wt::WObject {
-    const Server::Auth* services;
+    const Services* services;
     Session::Impl* session_impl;
     Auth* _auth;
     Impl(Auth* parent, App* app) : Wt::WObject(parent) {
         if (app == nullptr)
             throw std::logic_error("Can't get the session from the running app");
-        services = Server::Auth::instance();
+        services = Services::instance();
         if (services == nullptr)
-            throw std::logic_error("Couldn't find a wittyPlus server");
+            throw std::logic_error("Couldn't find a global wittyPlus::Services instance. Create one in 'main' or use wittyPlus::WRun");
         Session* session = app->session();
         session_impl = session->impl();
     }

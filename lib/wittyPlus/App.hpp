@@ -42,4 +42,6 @@ public:
     static App* instance() { return dynamic_cast<App*>(Wt::WApplication::instance()); }
 };
 
+int WRun(int argc, char** argv, std::function<App*(const Wt::WEnvironment&)> createApp);
+
 } // namespace wittyPlus

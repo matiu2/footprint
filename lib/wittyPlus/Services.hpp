@@ -1,6 +1,5 @@
 /// Internal file -- holds the auth services singleton collection
 #pragma once
-#include "Server.hpp"
 
 #include <Wt/Auth/AuthService>
 #include <Wt/Auth/HashFunction>
@@ -13,11 +12,13 @@
 
 namespace wittyPlus {
 
-struct Server::Auth {
+struct Services {
+    static const Services* instance() { return _instance; }
+    static Services* _instance;
     Wt::Auth::AuthService authService;
     Wt::Auth::PasswordService passwordService;
-    std::vector<const Wt::Auth::OAuthService*> oAuthServices;
-    Auth() : passwordService(authService) {
+    Services() : passwordService(authService) {
+        assert(_instance == nullptr); // This is a global singleton
         // Configure the services
         authService.setAuthTokensEnabled(true, "footprint_auth");
         authService.setEmailVerificationEnabled(true);
@@ -29,8 +30,12 @@ struct Server::Auth {
 
         if (Wt::Auth::GoogleService::configured())
             oAuthServices.push_back(new Wt::Auth::GoogleService(authService));
+        _instance = this;
     }
-    static const Server::Auth* instance() { return Server::instance()->auth.get(); }
+    ~Services() {
+        _instance = nullptr;
+    }
+    std::vector<const Wt::Auth::OAuthService*> oAuthServices;
 };
 
 }
