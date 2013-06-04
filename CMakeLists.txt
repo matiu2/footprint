@@ -39,11 +39,21 @@ TARGET_LINK_LIBRARIES(test_base ${Boost_UNIT_TEST_FRAMEWORK_LIBRARY} ${WT_TEST} 
 enable_testing()
 
 # User variables for the build/install 
+option(RUN_MEM_TESTS "Run tests slower using valgrind to check for memory leaks" Off )
+
 set(ETC "etc" CACHE PATH "The config dir")
 set(SHARE "share/footprint" CACHE PATH "The main install directory for the footprint website")
-set(APP_ROOT "share/footprint/app_root" CACHE PATH "Where the c++ code loads resources from, not directly published to the web")
-set(DOC_ROOT "share/footprint/doc_root" CACHE PATH "Where resources for serving directly to the web are found")
-option(RUN_MEM_TESTS "Run tests slower using valgrind to check for memory leaks" Off )
+set(APP_ROOT "app_root" CACHE PATH "Where the c++ code loads resources from, not directly published to the web")
+set(DOC_ROOT "doc_root" CACHE PATH "Where resources for serving directly to the web are found")
+
+set(ETC_DBG ${CMAKE_BINARY_DIR}/${ETC})
+set(APP_ROOT_DBG ${CMAKE_BINARY_DIR}/${APP_ROOT})
+set(DOC_ROOT_DBG ${CMAKE_BINARY_DIR}/${DOC_ROOT})
+
+set(ETC_INSTALL /${ETC})
+set(SHARE_INSTALL ${CMAKE_INSTALL_PREFIX}/${SHARE})
+set(APP_ROOT_INSTALL ${SHARE}/${APP_ROOT})
+set(DOC_ROOT_INSTALL ${SHARE}/${DOC_ROOT})
 
 # Use our own copy of wittyPlus for now
 include_directories("lib")

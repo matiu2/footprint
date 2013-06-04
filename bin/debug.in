@@ -1,4 +1,2 @@
 #!/bin/sh
 app/footprint --docroot="${DOC_ROOT_DBG};/images,/resources,/css" --http-address=127.0.0.1 --http-port=8080 --approot="${APP_ROOT_DBG}" -c ${ETC_DBG}/footprint_cfg.xml
-# TODO: when installing instead of 'app' it should point to /usr/share/footprint/footprint
-#${SHARE_DBG}/footprint --docroot="${DOC_ROOT_DBG};/images,/resources,/css" --http-address=127.0.0.1 --http-port=8080 --approot="${APP_ROOT_DBG}" -c ${ETC_DBG}/footprint_cfg.xml
